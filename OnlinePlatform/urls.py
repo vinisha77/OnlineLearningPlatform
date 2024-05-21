@@ -16,9 +16,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from . import views
+from UserApp import views
 
 urlpatterns = [
-    path('', views.home, name='home'),  # URL pattern for the home view
     path('admin/', admin.site.urls),
+    path('', views.home, name='home'),  # Home page URL  / ROOT URL
+    path('user_register/', views.user_login, name='user_login'),
+    path('user_login/', views.user_login, name='user_login'),
+    path('logout/', views.user_logout, name='user_logout'),
+    path('search/', views.search_courses, name='search_courses'),
+    path('course_list/', views.course_list, name='course_list'),
+    path('course_register/', views.user_register, name='user_register'),
+    path('course_detail/', views.course_detail, name='course_detail'),
+    
+    
+   
 ]

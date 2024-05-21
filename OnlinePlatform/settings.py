@@ -10,12 +10,16 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
-from pathlib import Path
 import os
+from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
+TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
+
+# Path to the users and courses templates directories
+USERS_TEMPLATES_DIR = BASE_DIR / 'CourseApp' / 'templates'
+COURSES_TEMPLATES_DIR = BASE_DIR / 'UserApp' / 'templates'
 
 
 # Quick-start development settings - unsuitable for production
@@ -39,8 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'UserApp',
     'CourseApp',
+    'UserApp',
 ]
 
 MIDDLEWARE = [
@@ -58,7 +62,11 @@ ROOT_URLCONF = 'OnlinePlatform.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'OnlinePlatform' / 'templates'],
+        'DIRS': [
+            TEMPLATE_DIR,         # if you have a global templates directory
+            USERS_TEMPLATES_DIR,   # path to users templates
+            COURSES_TEMPLATES_DIR, # path to courses templates
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
