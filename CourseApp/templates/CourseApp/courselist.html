@@ -1,25 +1,63 @@
+<!-- CourseApp/templates/CourseApp/courselist.html -->
 {% extends 'base.html' %}
-{% block title %}Course List - Online Platform{% endblock %}
 {% load static %}
+{% load form_tags %}
+
+{% block title %}Course List{% endblock %}
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'CourseApp/courselist.css' %}">
-<!-- CourseApp/templates/CourseApp/courselist.html -->
-    <div class="container">
-        <h1 class="my-4">Available Courses</h1>
-        <div class="row">
-            {% for course in courses %}
-            <div class="col-md-4 d-flex align-items-stretch mt-3">
-                <div class="card course-card">
-                    <img src="{{ course.image.url }}" class="card-img-top course-image" alt="{{ course.title }}">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <a href="{% url 'course_detail' course.id %}">{{ course.title }}</a>
-                        </h5>
-                    </div>
+<div class="container">
+    <h1 class="my-4">Available Courses</h1>
+
+    <!-- Filter Form -->
+    <form method="GET" class="form-row mb-4" id="course-filter-form">
+        <div class="form-group col-md-3">
+            <label for="category">Category</label>
+            {{ form.category|add_class:"form-control" }}
+        </div>
+        <div class="form-group col-md-3">
+            <label for="difficulty_level">Level</label>
+            {{ form.difficulty_level|add_class:"form-control" }}
+        </div>
+        <div class="form-group col-md-2">
+            <label for="min_price">Min Price</label>
+            {{ form.min_price|add_class:"form-control" }}
+        </div>
+        <div class="form-group col-md-2">
+            <label for="max_price">Max Price</label>
+            {{ form.max_price|add_class:"form-control" }}
+        </div>
+        <div class="form-group col-md-2 align-self-end">
+            <button type="submit" class="btn btn-primary btn-block">Apply Filters</button>
+            {% if has_filter %}
+                <a class="btn btn-secondary btn-block" href="{% url 'course_list' %}">Clear all filters</a>
+            {% endif %}
+        </div>
+    </form>
+    
+<script>
+    function resetFilters() {
+        console.log("Reset button clicked");
+        document.getElementById("course-filter-form").reset();
+    }
+</script>
+    
+
+    <!-- Course List -->
+    <div class="row">
+        {% for course in courses %}
+        <div class="col-md-4 d-flex align-items-stretch mt-3">
+            <div class="card course-card">
+                <img src="{{ course.image.url }}" class="card-img-top course-image" alt="{{ course.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{% url 'course_detail' course.id %}">{{ course.title }}</a>
+                    </h5>
                 </div>
             </div>
-            {% endfor %}
         </div>
+        {% endfor %}
     </div>
+</div>
 {% endblock %}
