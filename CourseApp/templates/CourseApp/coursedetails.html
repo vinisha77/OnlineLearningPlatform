@@ -1,0 +1,24 @@
+<!-- CourseApp/templates/CourseApp/coursedetails.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Course Details - Online Platform{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'CourseApp/coursedetails.css' %}">
+    
+    <div class="container">
+        <h1 class="my-4">{{ course.title }} by {{course.author}}</h1>
+        <div class="row">
+            <div class="col-md-8">
+                <img src="{{ course.image.url }}" class="img-fluid" alt="{{ course.title }}">
+            </div>
+            <div class="col-md-4">
+                <h3>Description</h3>
+                <p>{{ course.description|safe }}</p>
+                <h3>Price</h3>
+                <p>${{ course.price }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
