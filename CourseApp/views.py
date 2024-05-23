@@ -1,5 +1,6 @@
 # CourseApp/views.py
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
 from .models import Course
 from .forms import CourseFilterForm
 from django.db.models import Q
@@ -26,7 +27,8 @@ def course_list(request):
         if max_price is not None:
             courses = courses.filter(price__lte=max_price)
 
-    return render(request, 'CourseApp/courselist.html', {'courses': courses, 'form': form, 'has_filter': has_filter})
+    return render(request, 'CourseApp/courselist.html', 
+                  {'courses': courses, 'form': form, 'has_filter': has_filter})
 
 def course_detail(request, course_id):
     course = get_object_or_404(Course, id=course_id)
@@ -45,3 +47,11 @@ def search_courses(request):
     else:
         courses = []
     return render(request, 'CourseApp/search_results.html', {'courses': courses, 'query': query})
+
+@login_required
+def enroll_course(request, course_id):
+    course = get_object_or_404(Course, id=course_id)
+    # Add the logic for enrolling the user in the course here
+    # e.g., creating an enrollment record in the database
+    # Enrollment.objects.create(user=request.user, course=course)
+    return redirect('course_list')
