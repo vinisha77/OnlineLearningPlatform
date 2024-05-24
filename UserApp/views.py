@@ -29,7 +29,7 @@ def user_register(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Account created successfully! You can now log in.')
-            return redirect('course_list')  # Assuming 'course_list' is the name of the URL for the course list page
+            return redirect('user_login')  
     else:
         form = CustomUserCreationForm()
     return render(request, 'UserApp/registration.html', {'form': form})
