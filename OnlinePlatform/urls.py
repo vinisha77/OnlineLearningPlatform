@@ -24,6 +24,7 @@ from CourseApp import views as course_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', user_views.home, name='home'),
+   
     path('user_register/', user_views.user_register, name='user_register'),
     path('user_login/', user_views.user_login, name='user_login'),
     path('logout/', user_views.user_logout, name='user_logout'),
