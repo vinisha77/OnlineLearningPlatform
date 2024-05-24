@@ -46,8 +46,12 @@ INSTALLED_APPS = [
     'CourseApp',
     'UserApp',
     'ckeditor',
+    'crispy_forms',
+    'crispy_bootstrap5',  # Add this line
     
 ]
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap, bootstrap4, bootstrap5'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

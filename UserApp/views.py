@@ -7,7 +7,7 @@ from django.http import JsonResponse
 from django.urls import reverse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
- 
+from .forms import CustomUserCreationForm
 # Create your views here.
 
 def home(request):
@@ -25,15 +25,14 @@ def user_logout(request):
 
 def user_register(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, 'Account created successfully! You can now log in.')
-            return redirect('user_login')
+            return redirect('course_list')  # Assuming 'course_list' is the name of the URL for the course list page
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     return render(request, 'UserApp/registration.html', {'form': form})
-
 
 def search_courses(request):
     pass
