@@ -1,5 +1,8 @@
 # CourseApp/forms.py
 from django import forms
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 class CourseFilterForm(forms.Form):
     CATEGORY_CHOICES = [
@@ -22,3 +25,11 @@ class CourseFilterForm(forms.Form):
     difficulty_level = forms.ChoiceField(choices=DIFFICULTY_CHOICES, required=False)
     min_price = forms.DecimalField(required=False, decimal_places=2, max_digits=10)
     max_price = forms.DecimalField(required=False, decimal_places=2, max_digits=10)
+
+class UserRegistrationForm(UserCreationForm):
+    first_name = forms.CharField(max_length=30, required=True)
+    last_name = forms.CharField(max_length=30, required=True)
+
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'password1', 'password2']

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card border-primary">
+        <div class="card-header bg-primary text-white">
+            <h2 class="card-title mb-0" >Register Here</h2>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                {% crispy form %}
+                <div class="d-grid gap-2">
+                    <!--<button type="submit" style="background-color: #178C8C; color: white;" class="btn btn-primary">Register</button>-->
+                    <!--<a href="{% url 'course_list' %}" class="btn btn-secondary">Cancel</a>-->
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
