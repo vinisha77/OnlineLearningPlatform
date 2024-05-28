@@ -8,6 +8,8 @@ from django.urls import reverse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import CustomUserCreationForm
+from CourseApp.models import Course
+
 # Create your views here.
 
 def home(request):
@@ -43,9 +45,3 @@ def course_detail(request):
 
 def course_list(request):
     pass
-
-
-
-
-
-
