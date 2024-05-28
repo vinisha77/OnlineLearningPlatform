@@ -16,8 +16,30 @@ def home(request):
     return render (request , 'home.html')
 
 def user_login(request):
-    context = {}  # Define an empty context or use getcontext() if defined elsewhere
-    return render(request, 'UserApp/login.html', context)
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+ 
+        user = authenticate(username=username,password=password)
+ 
+        if user:
+            if user.is_active:
+                login(request,user)
+                return HttpResponseRedirect(reverse('course_list'))
+           
+            else:
+                return HttpResponse("ACCOUNT NOT ACTIVE!")
+           
+        else:
+            print("Someone tried to login and failed")
+            print("Username: {} and password {}".format(username, password))
+            return HttpResponse("Invalid login details supplied!")
+   
+    else:
+        return render(request, 'UserApp/login.html',{})
+    
+    #context = {}  # Define an empty context or use getcontext() if defined elsewhere
+    #return render(request, 'UserApp/login.html', context)
 
 @login_required
 def user_logout(request):

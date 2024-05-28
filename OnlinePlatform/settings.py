@@ -136,6 +136,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "CourseApp/static",
+    BASE_DIR / "UserApp/static",
 ]
 
 MEDIA_URL = '/media/'

@@ -1,10 +1,40 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
-{% block title %}Home - Online Learning Platform{% endblock %}
+{% block title %}Home{% endblock %}
 
-{% block content %}
-<h1>Welcome to the Online Learning Platform</h1>
-<p>This is the home page.</p>
+{% block extra_head %}
+{% load static %}  <!-- Load the static files template tag -->
+<style>
+    body {
+        background: url("{% static 'images/sampleimage.jpg' %}") no-repeat center center fixed;
+        background-size: cover;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+    }
+    .content {
+        padding-top: 56px; /* Same as the height of the navbar */
+        padding-bottom: 40px; /* Same as the height of the footer */
+        padding-left: 20px; /* Space from left side */
+        padding-right: 20px; /* Space from right side */
+        box-sizing: border-box;
+        text-align: center;
+        color: white;
+    }
+    .container img {
+        width: 100%;
+        height: calc(100% - 20px); /* Decrease height by 20 pixels */
+        object-fit: cover;
+        margin-left: auto; /* Move image to the right */
+    }
+</style>
 {% endblock %}
 
-#this is a test
+{% block content %}
+<div class="content">
+    <div class="container">
+       <!-- <img src="{% static 'images/homepagebackground.jpg' %}" alt="Image Description">-->
+       <h1> Welcome To Online Learning Platform !!!</h1>
+    </div>
+</div>
+{% endblock %}
