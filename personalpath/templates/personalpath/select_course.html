@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Select Course{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+        <div class="container mt-4">
+            <h1>Set your goals </h1>
+            <h3>Choose Course</h3>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Next</button>
+            </form>
+        </div>
+</div>
+{% endblock %}

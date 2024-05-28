@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}Your Learning Path{% endblock %}
+
+{% block content %}
+<style>
+    /* Define styles for different levels */
+    .beginner {
+        /* Define styles for beginner level */
+        background-color: lightblue; /* Example background color */
+        height: 10px; /* Example height */
+        width: 50px; /* Example width */
+    }
+
+    .intermediate {
+        /* Define styles for intermediate level */
+        background-color: lightgreen; /* Example background color */
+        height: 10px; /* Example height */
+        width: 100px; /* Example width */
+    }
+
+    .advanced {
+        /* Define styles for advanced level */
+        background-color: lightcoral; /* Example background color */
+        height: 10px; /* Example height */
+        width: 150px; /* Example width */
+    }
+
+    .certification {
+        /* Define styles for certification level */
+        background-color: lightyellow; /* Example background color */
+        height: 10px; /* Example height */
+        width: 200px; /* Example width */
+    }
+
+    /* Example styles for the dotted path */
+    .dotted-path {
+        border-bottom: 2px dotted #000; /* Example styles for the dotted path */
+        margin-bottom: 20px; /* Adjust margin as needed */
+    }
+</style>
+<div class="jumbotron">
+    <div class="container mt-4">
+        <h1>Welcome To The Personal Learning Path  ,{{ username }}!! </h1>
+        
+        <br><br>
+        <div class="dotted-path">
+            <!-- Course name -->
+            <h3>{{ path.course.title }}</h3>
+            <!-- Dotted path for beginner level -->
+            {% if path.level.name == 'beginner' %}
+                <h6>Keep Learning !! We estimate you will reach your goal in 120 Days </h6>
+                <br><br>
+                <div class="beginner"></div>Beginner Level - 30 Days
+                <br><br>
+                <!-- Intermediate level -->
+                <div class="intermediate"></div>Intermediate level - 20 Days
+                <br><br>
+                <!-- Advanced level -->
+                <div class="advanced"></div>Advanced level - 40 Days
+                <br><br>
+                <!-- Certification level -->
+                <div class="certification"></div>Prepare For Certification Exam - 30 Days
+
+            {% elif path.level.name == 'intermediate' %}
+                
+                <h6>Keep Learning !! We estimate you will reach your goal in 90 Days </h6><br><br>
+                <div class="intermediate"></div>Intermediate level - 20 Days
+                <br><br>
+                <!-- Advanced level -->
+                <div class="advanced"></div>Advanced level - 30 Days
+                <br><br>
+                <!-- Certification level -->
+                <div class="certification"></div> Prepare For Certification Exam - 40 Days
+            {% elif path.level.name == 'advanced' %}
+                <h6>Keep Learning !! We estimate you will reach your goal in 45 Days </h6><br><br>
+                <div class="advanced"></div>Advanced level - 30 Days
+                <br><br>
+                <!-- Certification level -->
+                <div class="certification"></div>Prepare For Certification Exam - 40 Days
+            {% else %}
+                <!-- Dotted path for certification level -->
+                <div class="beginner"></div>
+                <div class="intermediate"></div>
+                <div class="advanced"></div>
+                <div class="certification"></div>
+            {% endif %}
+        </div>
+        <!-- Additional content -->
+        <a href="">Click Here To Get Your Certification Exam Credentials ! </a>
+    </div>
+</div>
+{% endblock %}
