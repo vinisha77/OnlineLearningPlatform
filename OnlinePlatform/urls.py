@@ -28,6 +28,7 @@ urlpatterns = [
     path('user_login/', user_views.user_login, name='user_login'),
     path('logout/', user_views.user_logout, name='user_logout'),
     path('courses/', include('CourseApp.urls')),  # Include CourseApp URLs
+    path('category/<str:category>/', user_views.category_courses, name='category_courses'),
 
 ]
 
