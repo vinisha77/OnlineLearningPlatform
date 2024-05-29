@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import os
 from pathlib import Path
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,6 +21,7 @@ TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
 # Path to the users and courses templates directories
 USERS_TEMPLATES_DIR = BASE_DIR / 'CourseApp' / 'templates'
 COURSES_TEMPLATES_DIR = BASE_DIR / 'UserApp' / 'templates'
+INSTRUCTORS_TEMPLATES_DIR = BASE_DIR / 'InstructorApp' / 'templates'
 
 
 # Quick-start development settings - unsuitable for production
@@ -45,9 +47,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'CourseApp',
     'UserApp',
+    'personalpath',
     'ckeditor',
     'crispy_forms',
     'crispy_bootstrap5',  # Add this line
+    'InstructorApp',
     
 ]
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap, bootstrap4, bootstrap5'
@@ -72,6 +76,7 @@ TEMPLATES = [
             TEMPLATE_DIR,         # if you have a global templates directory
             USERS_TEMPLATES_DIR,   # path to users templates
             COURSES_TEMPLATES_DIR, # path to courses templates
+            INSTRUCTORS_TEMPLATES_DIR #path to instructors templates
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -137,10 +142,25 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "CourseApp/static",
     BASE_DIR / "UserApp/static",
+    BASE_DIR / "InstructorApp",
 ]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
+# Optional: Customize message tags
+MESSAGE_TAGS = {
+    messages.DEBUG: 'debug',
+    messages.INFO: 'info',
+    messages.SUCCESS: 'success',
+    messages.WARNING: 'warning',
+    messages.ERROR: 'error',
+}
+
+
+LOGIN_URL = 'user_login'  # URL name for  login view
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
