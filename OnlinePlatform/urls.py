@@ -19,6 +19,8 @@ from django.contrib import admin
 from django.conf import settings
 from UserApp import views as user_views
 from django.conf.urls.static import static
+from django.urls import path
+from personalpath.views import select_course, select_level, view_learning_path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,6 +32,9 @@ urlpatterns = [
     path('courses/', include('CourseApp.urls')),  # Include CourseApp URLs
     #path('course_register/', user_views.user_register, name='user_register'),
     path('instructor/', include('InstructorApp.urls')), #Include InstructorApp URLs
+    path('select-course/', select_course, name='select_course'),
+    path('select-level/', select_level, name='select_level'),
+    path('learning-path/<int:path_id>/',view_learning_path, name='view_learning_path'),
 
 ]
 
