@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}{{ category|title }} Courses{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>{{ category|title }} Courses</h1>
+    <div class="row">
+        {% for course in courses %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img class="card-img-top" src="{{ course.image.url }}" alt="{{ course.title }}" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ course.title }}</h5>
+                        <a href="{% url 'course_detail' course.id %}" class="btn btn-primary">View Course</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

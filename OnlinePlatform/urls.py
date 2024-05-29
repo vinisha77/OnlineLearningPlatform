@@ -21,21 +21,15 @@ from UserApp import views as user_views
 from django.conf.urls.static import static
 from django.urls import path
 from personalpath.views import select_course, select_level, view_learning_path
+from CourseApp import views as course_views  # Import the home view from CourseApp
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', user_views.home, name='home'),
-   
-    path('user_register/', user_views.user_register, name='user_register'),
-    path('user_login/', user_views.user_login, name='user_login'),
-    path('logout/', user_views.user_logout, name='user_logout'),
+    path('', course_views.home, name='home'),  # Use CourseApp's home view
+    path('', include('UserApp.urls')),  # Include UserApp URLs
     path('courses/', include('CourseApp.urls')),  # Include CourseApp URLs
-    #path('course_register/', user_views.user_register, name='user_register'),
     path('instructor/', include('InstructorApp.urls')), #Include InstructorApp URLs
-    path('select-course/', select_course, name='select_course'),
-    path('select-level/', select_level, name='select_level'),
-    path('learning-path/<int:path_id>/',view_learning_path, name='view_learning_path'),
-
+    path('personalpath/', include('personalpath.urls')),  # Include personalpath URLs
 ]
 
 # Add this line to serve media files during development
