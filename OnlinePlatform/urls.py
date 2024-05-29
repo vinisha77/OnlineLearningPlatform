@@ -31,6 +31,7 @@ urlpatterns = [
     path('logout/', user_views.user_logout, name='user_logout'),
     path('courses/', include('CourseApp.urls')),  # Include CourseApp URLs
     #path('course_register/', user_views.user_register, name='user_register'),
+    path('instructor/', include('InstructorApp.urls')), #Include InstructorApp URLs
     path('select-course/', select_course, name='select_course'),
     path('select-level/', select_level, name='select_level'),
     path('learning-path/<int:path_id>/',view_learning_path, name='view_learning_path'),
