@@ -70,3 +70,15 @@ def category_courses(request, category):
         'courses': courses
     }
     return render(request, 'category_courses.html', context)
+
+def category_course_detail(request, course_id):
+    # Retrieve the course object using the course_id
+    course = get_object_or_404(Course, id=course_id)
+
+    # Pass the course object to the template
+    context = {
+        'course': course
+    }
+
+    # Render the template with the course detail
+    return render(request, 'category_course_details.html', context)
