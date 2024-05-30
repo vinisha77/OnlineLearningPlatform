@@ -6,6 +6,13 @@
     <title>{% block title %}Online Learning Platform{% endblock %}</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Load static files -->
+    {% load static %}
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'InstructorApp/instructor.css' %}">
+
+    
     <style>
         /* Add custom styles to enhance the form appearance */
         .card {

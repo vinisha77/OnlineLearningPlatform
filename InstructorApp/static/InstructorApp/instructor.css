@@ -1,0 +1,30 @@
+textarea.form-control {
+    height: 100px; /* Adjust the height as needed */
+    resize: vertical; /* Allow vertical resizing */
+    width: 178%; /* Ensure the width is 100% */
+}
+
+.form-control {
+    width: 100%;
+}
+
+.jumbotron {
+    padding: 2rem 1rem;
+    border-radius: 0.3rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+/* Adjust label spacing for category and difficulty level */
+.form-group label {
+    margin-top: 1rem; /* Add spacing between labels */
+}
+
+
+
+
+
+
