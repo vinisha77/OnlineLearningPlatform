@@ -35,6 +35,8 @@ urlpatterns = [
     path('select-course/', select_course, name='select_course'),
     path('select-level/', select_level, name='select_level'),
     path('learning-path/<int:path_id>/',view_learning_path, name='view_learning_path'),
+    path('instructor-dashboard/', user_views.instructor_dashboard, name='instructor_dashboard'),
+
 
 ]
 

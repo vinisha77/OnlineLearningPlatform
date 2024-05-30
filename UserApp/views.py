@@ -8,6 +8,9 @@ from django.urls import reverse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import CustomUserCreationForm
+import logging
+from .models import Profile  # Import the Profile model
+
 # Create your views here.
 
 def home(request):
@@ -17,24 +20,31 @@ def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
- 
-        user = authenticate(username=username,password=password)
- 
+        logger = logging.getLogger(__name__)
+        
+        user = authenticate(username=username, password=password)
+        
         if user:
             if user.is_active:
-                login(request,user)
-                return HttpResponseRedirect(reverse('course_list'))
-           
+                login(request, user)
+                
+                # Print the user object and role for debugging purposes
+                logger.info(f"Current User: {user.username}, Role: {user.profile.role}")
+                
+                # Check the user's role and redirect accordingly
+                if user.profile.role == 'instructor':
+                    return redirect('instructor_dashboard')
+                else:
+                    return redirect('course_list')
             else:
                 return HttpResponse("ACCOUNT NOT ACTIVE!")
-           
         else:
-            print("Someone tried to login and failed")
-            print("Username: {} and password {}".format(username, password))
-            return HttpResponse("Invalid login details supplied!")
-   
+            logger.warning(f"Login failed for Username: {username}")
+            messages.error(request, "Invalid login details supplied!")
+            return render(request, 'UserApp/login.html', {})
     else:
-        return render(request, 'UserApp/login.html',{})
+        return render(request, 'UserApp/login.html', {})
+
     
     #context = {}  # Define an empty context or use getcontext() if defined elsewhere
     #return render(request, 'UserApp/login.html', context)
@@ -45,13 +55,23 @@ def user_logout(request):
     return HttpResponseRedirect(reverse('home'))
 
 
+
 def user_register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            role = form.cleaned_data.get('role')
+            
+            # Update the profile with the role and is_instructor information
+            profile = user.profile
+            profile.role = role
+            profile.is_instructor = (role == 'instructor')
+            profile.save()
+            
+            login(request, user)
             messages.success(request, 'Account created successfully! You can now log in.')
-            return redirect('user_login')  
+            return redirect('user_login')
     else:
         form = CustomUserCreationForm()
     return render(request, 'UserApp/registration.html', {'form': form})
@@ -68,6 +88,11 @@ def course_list(request):
 
 
 
-
+@login_required
+def instructor_dashboard(request):
+    if not request.user.profile.role == 'instructor':
+        return redirect('home')
+    # Add any other context you want to pass to the template
+    return render(request, 'InstructorApp/instructor_dashboard.html')
 
 

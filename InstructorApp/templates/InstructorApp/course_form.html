@@ -1,13 +1,46 @@
-{% block title %}Course Form{% endblock %}
-
+{% extends "base.html" %}
+ 
+{% load crispy_forms_tags %}
+ 
+{% block title %}{{ form.instance.id|yesno:"Edit Course,Create Course" }}{% endblock %}
+ 
 {% block content %}
 <div class="container mt-5">
-    <h2>{{ form.instance.id|yesno:"Edit Course,Create Course" }}</h2>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">{{ form.instance.id|yesno:"Update,Create" }}</button>
-        <a href="{% url 'instructor_dashboard' %}" class="btn btn-secondary">Cancel</a>
-    </form>
+    <div class="jumbotron">
+        <h2 class="text-center">{{ form.instance.id|yesno:"Edit Course,Create Course" }}</h2>
+        <form method="post" enctype="multipart/form-data" class="mx-auto" style="max-width: 600px;">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.title|as_crispy_field }}
+            </div>
+            <div class="form-group">
+                {{ form.description|as_crispy_field }}
+            </div>
+            <div class="form-group">
+                {{ form.price|as_crispy_field }}
+            </div>
+            <div class="form-group">
+                {{ form.image|as_crispy_field }}
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form.category|as_crispy_field }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.difficulty_level|as_crispy_field }}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form.author|as_crispy_field }}
+            </div>
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary">{{ form.instance.id|yesno:"Update,Create" }}</button>
+                <a href="{% url 'instructor_dashboard' %}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}
+ 
