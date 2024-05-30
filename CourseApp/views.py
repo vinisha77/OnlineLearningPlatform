@@ -42,17 +42,11 @@ def course_detail(request, course_id):
     return render(request, 'CourseApp/coursedetails.html', {'course': course})
 
 def search_courses(request):
-    query = request.GET.get('query')
+    query = request.GET.get('q')
     courses = Course.objects.all()
-
-    if query:
-        courses = Course.objects.filter(
-            Q(title__icontains=query) | 
-            Q(author__icontains=query) | 
-            Q(description__icontains=query)
-        )
-    else:
-        courses = []
+   
+    courses = Course.objects.filter(title__icontains=query) | Course.objects.filter(author__icontains=query) | Course.objects.filter(description__icontains=query)
+              
     return render(request, 'CourseApp/search_results.html', {'courses': courses, 'query': query})
 
 @login_required

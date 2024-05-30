@@ -29,7 +29,16 @@ urlpatterns = [
     path('', include('UserApp.urls')),  # Include UserApp URLs
     path('courses/', include('CourseApp.urls')),  # Include CourseApp URLs
     path('instructor/', include('InstructorApp.urls')), #Include InstructorApp URLs
+<<<<<<< HEAD
+    path('select-course/', select_course, name='select_course'),
+    path('select-level/', select_level, name='select_level'),
+    path('learning-path/<int:path_id>/',view_learning_path, name='view_learning_path'),
+    path('instructor-dashboard/', user_views.instructor_dashboard, name='instructor_dashboard'),
+
+
+=======
     path('personalpath/', include('personalpath.urls')),  # Include personalpath URLs
+>>>>>>> 2435fe83710e6bd52e4c19a4ce629a064489acca
 ]
 
 # Add this line to serve media files during development
