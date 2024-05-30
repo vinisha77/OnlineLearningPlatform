@@ -1,6 +1,7 @@
 # CourseApp/views.py
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from .models import Course
 from .forms import CourseFilterForm
 from django.db.models import Q
@@ -58,9 +59,10 @@ def search_courses(request):
 @login_required
 def enroll_course(request, course_id):
     course = get_object_or_404(Course, id=course_id)
-    # Add the logic for enrolling the user in the course here
-    # e.g., creating an enrollment record in the database
-    # Enrollment.objects.create(user=request.user, course=course)
+    if request.method == 'POST':
+        # Kullanıcının kursa kayıt olduğu işlemleri burada gerçekleştirin
+        # Enrollment.objects.create(user=request.user, course=course)
+        return JsonResponse({'status': 'enrolled'})
     return redirect('course_list')
 
 def category_courses(request, category):

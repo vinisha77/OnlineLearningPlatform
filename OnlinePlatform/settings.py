@@ -22,6 +22,7 @@ TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
 USERS_TEMPLATES_DIR = BASE_DIR / 'CourseApp' / 'templates'
 COURSES_TEMPLATES_DIR = BASE_DIR / 'UserApp' / 'templates'
 INSTRUCTORS_TEMPLATES_DIR = BASE_DIR / 'InstructorApp' / 'templates'
+USERDASHBOARD_TEMPLATE_DIR = BASE_DIR / 'UserDashboardApp' / 'templates'
 
 
 # Quick-start development settings - unsuitable for production
@@ -52,6 +53,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',  # Add this line
     'InstructorApp',
+    'UserDashboardApp',
     
 ]
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap, bootstrap4, bootstrap5'
@@ -76,7 +78,8 @@ TEMPLATES = [
             TEMPLATE_DIR,         # if you have a global templates directory
             USERS_TEMPLATES_DIR,   # path to users templates
             COURSES_TEMPLATES_DIR, # path to courses templates
-            INSTRUCTORS_TEMPLATES_DIR #path to instructors templates
+            INSTRUCTORS_TEMPLATES_DIR, #path to instructors templates
+            USERDASHBOARD_TEMPLATE_DIR #path to users dashboard templates
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -143,6 +146,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "CourseApp/static",
     BASE_DIR / "UserApp/static",
     BASE_DIR / "InstructorApp",
+    BASE_DIR / "UserDashBoard",
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

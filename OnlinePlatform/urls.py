@@ -27,6 +27,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', course_views.home, name='home'),  # Use CourseApp's home view
     path('', include('UserApp.urls')),  # Include UserApp URLs
+    path('userdashboard/', include('UserDashboardApp.urls')),  # Include UserDashboardApp URLs
     path('courses/', include('CourseApp.urls')),  # Include CourseApp URLs
     path('instructor/', include('InstructorApp.urls')), #Include InstructorApp URLs
     path('personalpath/', include('personalpath.urls')),  # Include personalpath URLs
