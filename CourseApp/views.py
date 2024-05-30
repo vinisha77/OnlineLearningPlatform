@@ -5,6 +5,13 @@ from .models import Course
 from .forms import CourseFilterForm
 from django.db.models import Q
 
+def home(request):
+    categories = Course.CATEGORY_CHOICES
+    context = {
+        'categories': categories
+    }
+    return render(request, 'home.html', context)
+
 def course_list(request):
     form = CourseFilterForm(request.GET)
     courses = Course.objects.all()
@@ -49,3 +56,23 @@ def enroll_course(request, course_id):
     # e.g., creating an enrollment record in the database
     # Enrollment.objects.create(user=request.user, course=course)
     return redirect('course_list')
+
+def category_courses(request, category):
+    courses = Course.objects.filter(category=category)
+    context = {
+        'category': category,
+        'courses': courses
+    }
+    return render(request, 'category_courses.html', context)
+
+def category_course_detail(request, course_id):
+    # Retrieve the course object using the course_id
+    course = get_object_or_404(Course, id=course_id)
+
+    # Pass the course object to the template
+    context = {
+        'course': course
+    }
+
+    # Render the template with the course detail
+    return render(request, 'category_course_details.html', context)
