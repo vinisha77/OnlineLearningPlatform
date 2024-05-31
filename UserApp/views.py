@@ -1,3 +1,4 @@
+import logging
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login,logout
@@ -8,12 +9,7 @@ from django.urls import reverse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import CustomUserCreationForm
-<<<<<<< HEAD
-import logging
-from .models import Profile  # Import the Profile model
-=======
 from CourseApp.models import Course
->>>>>>> 2435fe83710e6bd52e4c19a4ce629a064489acca
 
 # Create your views here.
 
@@ -83,7 +79,6 @@ def user_register(request):
 def search_courses(request):
     pass
 
-<<<<<<< HEAD
 @login_required
 def course_detail(request):
     pass
@@ -101,8 +96,6 @@ def instructor_dashboard(request):
     return render(request, 'InstructorApp/instructor_dashboard.html')
 
 
-=======
 def category_courses(request, category):
     courses = Course.objects.filter(category=category)
     return render(request, 'category_courses.html', {'courses': courses})
->>>>>>> 2435fe83710e6bd52e4c19a4ce629a064489acca
