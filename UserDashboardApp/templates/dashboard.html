@@ -1,12 +1,85 @@
-<!-- userDashboardApp/templates//dashboard.html -->
 {% extends 'base.html' %}
 
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
+<style>
+    /* Custom styles for the course cards */
+    .card-img-top {
+        height: 200px;
+        object-fit: cover;
+    }
+
+    /* Adjustments for screens wider than 1440px */
+    @media (min-width: 1440px) {
+        .container {
+            max-width: 100%;
+        }
+
+        .col-xl-2 {
+            flex: 0 0 20%;
+            max-width: 20%;
+        }
+    }
+
+    .form-group label {
+        font-weight: bold;
+    }
+
+    .btn-block {
+        margin-top: 10px;
+    }
+
+    .my-4 {
+        margin-top: 1.5rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+    .btn-custom {
+        background-color: #178C8C; /* Updated color */
+        color: white;
+    }
+</style>
 <div class="container mt-4">
-    <h1>Welcome to Your Dashboard</h1>
-    <h2>My Courses</h2>
-    <!-- Buraya kullanıcının kayıtlı kurslarını listelemek için gerekli HTML kodlarını ekleyin -->
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3">
+            <div class="list-group">
+                <h1>Dashboard</h1>
+                <a href="{% url 'dashboard' %}" class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">My Courses</a>
+                <a href="{% url 'user_profile' %}" class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'user_profile' %}active{% endif %}">Profile</a>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="col-md-9">
+            <h2>My Courses</h2>
+            <div class="row">
+                {% for enrollment in enrollments %}
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <a href="{% url 'course_detail' enrollment.course.id %}">
+                                <img class="card-img-top" src="{{ enrollment.course.image.url }}" alt="{{ enrollment.course.title }}">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ enrollment.course.title }}</h5>
+                                <div class="mt-auto d-flex justify-content-between">
+                                <a href="{% url 'course_detail' enrollment.course.id %}" class="btn btn-primary">View Course</a>
+                                <a href="{% url 'withdraw_course' enrollment.course.id %}" class="btn btn-danger" onclick="return confirmWithdraw()">Withdraw</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+                {% if current_view == 'profile' %}
+                    {% include 'profile.html' %}
+                {% endif %}
+        </div>
+    </div>
 </div>
+<script>
+    function confirmWithdraw() {
+        return confirm("Are you sure you want to withdraw from this course?");
+    }
+</script>
 {% endblock %}

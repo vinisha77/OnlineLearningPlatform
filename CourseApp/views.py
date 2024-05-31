@@ -2,7 +2,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from .models import Course
+from django.contrib import messages
+from .models import Course, Enrollment
 from .forms import CourseFilterForm
 from django.db.models import Q
 
@@ -16,6 +17,7 @@ def home(request):
 def course_list(request):
     form = CourseFilterForm(request.GET)
     courses = Course.objects.all()
+    user_enrollments = get_user_enrollments(request.user) if request.user.is_authenticated else []
 
     # Check if any filter fields are present in the request GET parameters
     has_filter = any(field in request.GET for field in form.fields.keys())
@@ -36,7 +38,13 @@ def course_list(request):
             courses = courses.filter(price__lte=max_price)
 
     return render(request, 'CourseApp/courselist.html', 
-                  {'courses': courses, 'form': form, 'has_filter': has_filter})
+                  {'courses': courses, 'form': form, 'has_filter': has_filter, 'user_enrollments': user_enrollments})
+
+def get_user_enrollments(user):
+    if user.is_authenticated:
+        return Enrollment.objects.filter(user=user).values_list('course_id', flat=True)
+    else:
+        return []
 
 def course_detail(request, course_id):
     course = get_object_or_404(Course, id=course_id)
@@ -59,17 +67,29 @@ def search_courses(request):
 @login_required
 def enroll_course(request, course_id):
     course = get_object_or_404(Course, id=course_id)
-    if request.method == 'POST':
-        # Kullanıcının kursa kayıt olduğu işlemleri burada gerçekleştirin
-        # Enrollment.objects.create(user=request.user, course=course)
-        return JsonResponse({'status': 'enrolled'})
-    return redirect('course_list')
+    user = request.user
+
+    # Check if user is already enrolled in the course
+    if Enrollment.objects.filter(user=user, course=course).exists():
+        messages.info(request, 'You are already enrolled in this course.')
+    else:
+        # Enroll the user in the course
+        Enrollment.objects.create(user=user, course=course)
+        messages.success(request, 'Successfully enrolled in the course.')
+
+    return redirect('course_detail', course_id=course_id)
 
 def category_courses(request, category):
     courses = Course.objects.filter(category=category)
+    # Get the enrollments of the current user
+    user_enrollments = []
+    if request.user.is_authenticated:
+        user_enrollments = Enrollment.objects.filter(user=request.user).values_list('course_id', flat=True)
+
     context = {
         'category': category,
-        'courses': courses
+        'courses': courses,
+        'user_enrollments': user_enrollments,  # Pass the user's enrollments to the template
     }
     return render(request, 'category_courses.html', context)
 
@@ -77,9 +97,14 @@ def category_course_detail(request, course_id):
     # Retrieve the course object using the course_id
     course = get_object_or_404(Course, id=course_id)
 
-    # Pass the course object to the template
+    # Get the enrollments of the current user
+    user_enrollments = []
+    if request.user.is_authenticated:
+        user_enrollments = Enrollment.objects.filter(user=request.user).values_list('course_id', flat=True)
+
     context = {
-        'course': course
+        'course': course,
+        'user_enrollments': user_enrollments,  # Pass the user's enrollments to the template
     }
 
     # Render the template with the course detail

@@ -19,6 +19,11 @@
                 <p>{{ course.description|safe }}</p>
                 <h3>Price</h3>
                 <p>${{ course.price }}</p>
+                {% if course.id in user_enrollments %}
+                    <button class="btn btn-secondary mt-2" disabled>Already Enrolled</button>
+                {% else %}
+                    <a href="{% url 'enroll_course' course.id %}" class="btn btn-success mt-2">Enroll</a>
+                {% endif %}
             </div>
         </div>
     </div>
