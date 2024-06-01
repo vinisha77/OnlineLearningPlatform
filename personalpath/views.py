@@ -24,44 +24,25 @@ def login_required_message(message='You must be logged in to access this page.')
 @login_required_message('You need to log in to create a personalized learning path.')
 def select_course(request):
     if request.method == 'POST':
-        form = CourseSelectionForm(request.POST)
-        if form.is_valid():
-            request.session['course_id'] = form.cleaned_data['course'].id
-            return redirect('select_level')
-    else:
-        form = CourseSelectionForm()
-    return render(request, 'personalpath/select_course.html', {'form': form})
+        selected_course_ids = request.POST.getlist('course_ids')
+        print("Selected course IDs:", selected_course_ids)  # Debugging
+        if selected_course_ids:
+            request.session['selected_course_ids'] = selected_course_ids
+            return redirect('view_learning_path')
+        else:
+            messages.error(request, 'Please select at least one course.')
+    categories = [
+        ('programming', 'Programming'),
+        ('data_science', 'Data Science'),
+        ('design', 'Design'),
+        ('security', 'Security'),
+    ]
+    courses = Course.objects.all()
+    return render(request, 'personalpath/select_course.html', {'categories': categories, 'courses': courses})
+
 
 def select_level(request):
     from .models import Level   #Import the Level model
-
-@login_required_message('You need to log in to create a personalized learning path.')
-def select_level(request):
-    if 'course_id' not in request.session:
-        return redirect('select_course')
-    
-    if request.method == 'POST':
-        form = LevelSelectionForm(request.POST)
-        if form.is_valid():
-            level_name = form.cleaned_data['level']  # Get the selected level name
-            course_id = request.session['course_id']
-            course = Course.objects.get(id=course_id)
-            
-            # Fetch the corresponding Level object based on the selected level name
-            level = Level.objects.get(name=level_name)
-            
-            #PersonalizedLearningPath.objects.create(user=request.user, course=course, level=level)
-            personalized_learning_path = PersonalizedLearningPath.objects.create(user=request.user, course=course, level=level)
-            # Print statements for debugging
-            print(f'User: {request.user}')
-            print(f'Course: {course}')
-            print(f'Level: {level}')
-            print(f'PersonalizedLearningPath: {personalized_learning_path }')
-            return redirect('view_learning_path', path_id=personalized_learning_path.id)
-    else:
-        form = LevelSelectionForm()
-    return render(request, 'personalpath/select_level.html', {'form': form})
-
 
 @login_required_message('You need to log in to create a personalized learning path.')
 def view_learning_path(request,path_id):
