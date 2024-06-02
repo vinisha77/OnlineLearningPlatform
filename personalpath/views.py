@@ -37,6 +37,7 @@ def select_course(request):
             # Create a new PersonalizedLearningPath instance
             course = Course.objects.get(id=selected_course_id)
             user = request.user
+
             # Here we assume a default level, you can adjust this based on your requirements
             level = Level.objects.get(name=selected_level)  # Assuming a default level for now
             learning_path = PersonalizedLearningPath.objects.create(user=user, course=course, level=level)
@@ -47,7 +48,7 @@ def select_course(request):
             if not selected_level:
                 messages.error(request, 'Please select a level.')
             else:
-                messages.error(request, 'Please select at least one course.')
+                messages.error(request, 'Please select one course.')
     categories = [
         ('programming', 'Programming'),
         ('data_science', 'Data Science'),

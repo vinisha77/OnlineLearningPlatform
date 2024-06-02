@@ -25,6 +25,7 @@ class Course(models.Model):
     author = models.CharField(max_length=100, default='Unknown Author')
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='programming')
     difficulty_level = models.CharField(max_length=20, choices=DIFFICULTY_CHOICES, default='beginner')
+    link = models.URLField(max_length=200, blank=True)
 
     def __str__(self):
         return self.title

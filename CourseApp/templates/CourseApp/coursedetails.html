@@ -12,19 +12,76 @@
         <h1 class="my-4">{{ course.title }} by {{course.author}}</h1>
         <div class="row">
             <div class="col-md-8">
-                <img src="{{ course.image.url }}" class="img-fluid" alt="{{ course.title }}">
+                <img src="{{ course.image.url }}" class="img-fluid course-image" alt="{{ course.title }}">
             </div>
             <div class="col-md-8">
                 <h3>Description</h3>
                 <p>{{ course.description|safe }}</p>
-                <h3>Price</h3>
-                <p>${{ course.price }}</p>
-                {% if course.id in user_enrollments %}
-                    <button class="btn btn-secondary mt-2" disabled>Already Enrolled</button>
-                {% else %}
-                    <a href="{% url 'enroll_course' course.id %}" class="btn btn-success mt-2">Enroll</a>
-                {% endif %}
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h3>Price</h3>
+                        <p>${{ course.price }}</p>
+                    </div>
+                    <div class="col text-right">
+                        {% if user.is_authenticated %}
+                        {% if course.id in user_enrollments %}
+                            <button class="btn btn-secondary" disabled>Enrolled</button>
+                        {% else %}
+                            <a href="{% url 'enroll_course' course.id %}" class="btn btn-success" onclick="showEnrollModal(event)">Enroll</a>
+                        {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
+    <!-- Enroll Modal -->
+    <div class="modal fade" id="enrollModal" tabindex="-1" aria-labelledby="enrollModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="enrollModalLabel">Course Enrollment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    You have successfully enrolled in the course!
+                </div>
+                <div class="modal-footer">
+                    <a href="{% url 'dashboard' %}" class="btn btn-primary">Go to Dashboard</a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Browsing</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showEnrollModal(event) {
+            event.preventDefault();
+            const href = event.target.href;
+            
+            // Enroll in the course via AJAX
+            fetch(href, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                }
+            }).then(response => {
+                if (response.ok) {
+                    $('#enrollModal').modal('show');
+                } else {
+                    console.error('Enrollment failed');
+                }
+            }).catch(error => console.error('Error:', error));
+        }
+    </script>
+    <style>    
+        .course-image {
+            max-width: 100%;
+            max-height: 150px; /* Maximum height to reduce the image size */
+            object-fit: cover; /* This ensures the image covers the specified area */
+        }
+    </style>
 {% endblock %}

@@ -6,7 +6,7 @@
 <div class="jumbotron">
     <div class="container mt-4">
         <h1>Set your goals</h1>
-        <h3>Choose Course</h3>
+        <h3>Choose 1 Course to set your Learning Path</h3>
         <form method="post" id="course-selection-form">
             {% csrf_token %}
             <div class="row mb-4">
@@ -71,18 +71,28 @@
 
         const courseItems = document.querySelectorAll('.course-item');
         courseItems.forEach(item => {
-        item.addEventListener('click', function () {
-            // Toggle selection only if no course is selected yet
-            if (!document.querySelector('.course-item.selected')) {
-            this.classList.toggle('selected');
-            // Disable all other course items after selecting one
-            courseItems.forEach(otherItem => {
-                if (otherItem !== item) {
-                otherItem.disabled = true;
+          item.addEventListener('click', function () {
+            // Check if there is already a selected course
+            const alreadySelected = document.querySelector('.course-item.selected');
+
+            // If there is no selected course, allow selecting this course
+            if (!alreadySelected) {
+              this.classList.add('selected');
+              courseItems.forEach(otherItem => {
+                if (otherItem !== this) {
+                  otherItem.style.pointerEvents = 'none';
+                  otherItem.style.backgroundColor = 'lightgray';
                 }
-            });
+              });
+            } else if (this.classList.contains('selected')) {
+              // If the clicked item is the selected item, deselect it
+              this.classList.remove('selected');
+              courseItems.forEach(otherItem => {
+                otherItem.style.pointerEvents = 'auto';
+                otherItem.style.backgroundColor = '';
+              });
             }
-        });
+          });
         });
 
         // Add a hidden input field to store the selected course ids

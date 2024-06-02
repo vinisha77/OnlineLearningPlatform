@@ -10,6 +10,8 @@ class EnrollmentInline(admin.TabularInline):
 
 class CourseAdmin(admin.ModelAdmin):
     inlines = [EnrollmentInline]
-    list_display = ('title', 'description', 'price')
+    list_display = ('title', 'description', 'price', 'link',)
+    list_editable = ('link',)  
 
 admin.site.register(Course, CourseAdmin)
+admin.site.register(Enrollment) 
