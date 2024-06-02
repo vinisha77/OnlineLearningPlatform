@@ -9,6 +9,16 @@ class Course(models.Model):
         ('data_science', 'Data Science'),
         ('design', 'Design'),
         ('security', 'Security'),
+         ('cyber_security', 'Cyber Security'),
+        ('blockchain', 'Blockchain'),
+        ('big_data', 'Big Data'),
+        ('iot', 'Internet of Things (IoT)'),
+        ('robotics', 'Robotics'),
+        ('entrepreneurship', 'Entrepreneurship'),
+        ('leadership', 'Leadership'),
+        ('finance', 'Finance'),
+        ('entrepreneurship', 'Entrepreneurship'),
+        
         # Add more categories as needed
     ]
     

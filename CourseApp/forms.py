@@ -11,6 +11,26 @@ class CourseFilterForm(forms.Form):
         ('data_science', 'Data Science'),
         ('design', 'Design'),
         ('security', 'Security'),
+        ('cyber_security', 'Cyber Security'),
+        ('blockchain', 'Blockchain'),
+        ('big_data', 'Big Data'),
+        ('iot', 'Internet of Things (IoT)'),
+        ('robotics', 'Robotics'),
+        ('software_testing', 'Software Testing'),
+        ('business_analysis', 'Business Analysis'),
+        ('project_management', 'Project Management'),
+        ('digital_marketing', 'Digital Marketing'),
+        ('seo', 'Search Engine Optimization (SEO)'),
+        ('content_creation', 'Content Creation'),
+        ('graphic_design', 'Graphic Design'),
+        ('ux_ui', 'UX/UI Design'),
+        ('animation', 'Animation'),
+        ('video_editing', 'Video Editing'),
+        ('music_production', 'Music Production'),
+        ('finance', 'Finance'),
+        ('entrepreneurship', 'Entrepreneurship'),
+        ('leadership', 'Leadership'),
+        ('personal_development', 'Personal Develop')
         # Add more categories as needed
     ]
     
