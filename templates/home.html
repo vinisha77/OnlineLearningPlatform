@@ -2,23 +2,71 @@
 
 {% block title %}Home{% endblock %}
 
-{% load static %}  <!-- Load the static files template tag -->
+{% load static %}
 
-<!-- Include Bootstrap CSS from a CDN or locally -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 {% block content %}
-<div class="content text-center" style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: 25px; margin-bottom: 25px;">
-    <h1>Welcome to Online Learning Platform</h1>
-    <img src="{% static 'images/udemy.jpg' %}" alt="Background Image" style="width: 100%; margin-top: 35px;">
-</div>
+<style>
+    /* CSS styles for the top categories section */
+    .top-categories-title {
+        color: #3d30a2;
+        text-align: left; /* Align the heading to the left */
+        margin-bottom: 20px; /* Optional: Add some bottom margin */
+    }
 
-<div class="text-center" style="margin-top: 25px; margin-bottom: 25px;">
-    <h1>Course Categories</h1>
-    <div class="d-flex justify-content-around flex-wrap">
-        {% for category, category_display in categories %}
-            <a href="{% url 'category_courses' category %}" class="btn btn-lg btn-primary m-3" style="background-color: #17a2b8; border-color: #17a2b8; color: white; font-size: 1.25rem; padding: 10px 20px; flex-basis: calc(20% - 20px);" role="button">{{ category_display }}</a>
-        {% endfor %}
+    .category-card {
+        background-color: transparent; /* Make the button background transparent */
+        border: 1px solid #c54189; /* Add a border for better visibility */
+        color: #c54189; /* Text color */
+        font-size: 1.25rem; /* Font size */
+        padding: 10px 20px; /* Padding */
+        margin: 10px;
+        display: block;
+        text-align: center;
+        text-decoration: none;
+        transition: transform 0.2s;
+        border-radius: 15px; /* Rounded corners */
+        width: 100%; /* Make buttons take full width of the column */
+    }
+
+    .category-card:hover {
+        transform: scale(1.05); /* Optional: Hover effect */
+    }
+
+    /* Optional: Add spacing between rows of buttons */
+    .row.justify-content-center {
+        margin-top: 10px;
+    }
+</style>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Video Column -->
+        <div class="col-lg-8 p-0"> <!-- Use col-lg-8 to take up 8 columns on large screens -->
+            <div class="video-container">
+                <video autoplay muted loop>
+                    <source src="{% static 'videos/homepagevideo.mp4' %}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 d-flex align-items-center justify-content-center">
+            <div class="text-center">
+                <h1 class="top-categories-title text-left">Our Top Categories</h1>
+                <div class="row justify-content-center"> <!-- Align cards in two columns -->
+                    {% for category, category_display in categories %}
+                        <div class="col-md-6">
+                            <a href="{% url 'category_courses' category %}" class="category-card" role="button">{{ category_display }}</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
     </div>
 </div>
+
 {% endblock %}
