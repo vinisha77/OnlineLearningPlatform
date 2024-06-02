@@ -11,11 +11,11 @@
             {% csrf_token %}
             <div class="row mb-4">
                 <div class="col-md-6">
-                    <select id="level-select" class="form-control">
+                    <select id="level-select" class="form-control" name="level">
                         <option value="" selected disabled>Select Level</option>
-                        <option value="beginner">Beginner</option>
-                        <option value="intermediate">Intermediate</option>
-                        <option value="advanced">Advanced</option>
+                        {% for level in levels %}
+                        <option value="{{ level.name }}">{{ level.name|capfirst }}</option>
+                        {% endfor %}
                     </select>
                 </div>
             </div>
@@ -71,15 +71,29 @@
 
         const courseItems = document.querySelectorAll('.course-item');
         courseItems.forEach(item => {
-            item.addEventListener('click', function () {
-                this.classList.toggle('selected');
+        item.addEventListener('click', function () {
+            // Toggle selection only if no course is selected yet
+            if (!document.querySelector('.course-item.selected')) {
+            this.classList.toggle('selected');
+            // Disable all other course items after selecting one
+            courseItems.forEach(otherItem => {
+                if (otherItem !== item) {
+                otherItem.disabled = true;
+                }
             });
+            }
+        });
         });
 
         // Add a hidden input field to store the selected course ids
-        const form = document.querySelector('form');
-        form.addEventListener('submit', function () {
+        const form = document.querySelector('#course-selection-form');
+        form.addEventListener('submit', function (event) {
             const selectedCourses = document.querySelectorAll('.course-item.selected');
+            if (selectedCourses.length === 0) {
+                event.preventDefault();
+                alert('Please select at least one course.');
+                return;
+            }
             selectedCourses.forEach(course => {
                 const input = document.createElement('input');
                 input.type = 'hidden';
