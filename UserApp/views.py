@@ -9,8 +9,14 @@ from django.urls import reverse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import CustomUserCreationForm
+<<<<<<< HEAD
 from CourseApp.models import Course
 
+=======
+import logging
+from .models import Profile  # Import the Profile model
+from CourseApp.models import Course
+>>>>>>> 52233234b1493bc821dd9988894d07476e17d8eb
 # Create your views here.
 
 def home(request):

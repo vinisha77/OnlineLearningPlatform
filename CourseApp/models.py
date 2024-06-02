@@ -1,6 +1,7 @@
 # CourseApp/models.py
 from django.db import models
 from ckeditor.fields import RichTextField
+from django.contrib.auth.models import User
 
 class Course(models.Model):
     CATEGORY_CHOICES = [
@@ -34,6 +35,15 @@ class Course(models.Model):
     author = models.CharField(max_length=100, default='Unknown Author')
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='programming')
     difficulty_level = models.CharField(max_length=20, choices=DIFFICULTY_CHOICES, default='beginner')
+    link = models.URLField(max_length=200, blank=True)
 
     def __str__(self):
         return self.title
+
+class Enrollment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    enrolled_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.user.username} enrolled in {self.course.title}'
