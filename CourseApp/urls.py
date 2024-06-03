@@ -9,6 +9,7 @@ urlpatterns = [
     path('search/', views.search_courses, name='search_courses'),
     path('category/<str:category>/', views.category_courses, name='category_courses'),
     path('course/<int:course_id>/', views.course_detail, name='course_detail'),
+    path('contact-us/', views.contact_us, name='contact_us'),
     # New URL pattern for category_course_detail
     path('category_course/<int:course_id>/', views.category_course_detail, name='category_course_detail'),
 ]

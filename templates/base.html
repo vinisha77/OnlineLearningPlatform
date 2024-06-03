@@ -54,18 +54,6 @@
         .content {
             flex: 1;
         }
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-        /* Footer styling */
-        .footer {
-            padding: 15px 0;
-            text-align: center;
-            color: white;
-        }
->>>>>>> 52233234b1493bc821dd9988894d07476e17d8eb
->>>>>>> e25e24ccf707ee2b55f75458946357df8db18d7d
 
         .search-button {
             background-color: #c54189 !important; /* Search button color */
@@ -103,6 +91,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'select_course' %}">Personalised Learning Path</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'contact_us' %}">Contact US</a>
+                    </li>
                 </ul>
                 
                 <!-- Search bar -->
@@ -130,6 +121,7 @@
                         <a class="nav-link" href="{% url 'user_register' %}">Register</a>
                     </li>
                     {% endif %}
+                   
                 </ul>
             </div>
         </div>
@@ -152,11 +144,7 @@
         {% endif %}
     </div>
     <!-- Main content class="container content"-->
-<<<<<<< HEAD
     <div class ="Content">
-=======
-    <div >
->>>>>>> e25e24ccf707ee2b55f75458946357df8db18d7d
         {% block content %}
         {% endblock %}
     </div>

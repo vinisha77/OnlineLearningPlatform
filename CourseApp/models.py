@@ -9,11 +9,6 @@ class Course(models.Model):
         ('data_science', 'Data Science'),
         ('design', 'Design'),
         ('security', 'Security'),
-<<<<<<< HEAD
-=======
-         ('cyber_security', 'Cyber Security'),
-        ('blockchain', 'Blockchain'),
->>>>>>> e25e24ccf707ee2b55f75458946357df8db18d7d
         ('big_data', 'Big Data'),
         ('iot', 'Internet of Things (IoT)'),
         ('robotics', 'Robotics'),
@@ -21,10 +16,6 @@ class Course(models.Model):
         ('leadership', 'Leadership'),
         ('finance', 'Finance'),
         ('entrepreneurship', 'Entrepreneurship'),
-<<<<<<< HEAD
-=======
-        
->>>>>>> e25e24ccf707ee2b55f75458946357df8db18d7d
         # Add more categories as needed
     ]
     
