@@ -7,6 +7,9 @@ from .models import Course, Enrollment
 from .forms import CourseFilterForm
 from django.db.models import Q
 
+def contact_us(request):
+    return render(request, 'CourseApp/contact_us.html')
+
 def home(request):
     categories = Course.CATEGORY_CHOICES
     context = {
