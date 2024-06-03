@@ -8,43 +8,60 @@
 
 {% block content %}
 <style>
-    /* CSS styles for the top categories section */
+    .video-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .video-container video {
+        width: 100%;
+        height: auto;
+    }
+
     .top-categories-title {
         color: #3d30a2;
-        text-align: left; /* Align the heading to the left */
-        margin-bottom: 20px; /* Optional: Add some bottom margin */
+        text-align: left;
+        margin-bottom: 20px;
     }
 
     .category-card {
-        background-color: transparent; /* Make the button background transparent */
-        border: 1px solid #c54189; /* Add a border for better visibility */
-        color: #c54189; /* Text color */
-        font-size: 1.25rem; /* Font size */
-        padding: 10px 20px; /* Padding */
+        background-color: transparent;
+        border: 1px solid #c54189;
+        color: #c54189;
+        font-size: 1.25rem;
+        padding: 10px 20px;
         margin: 10px;
         display: block;
         text-align: center;
         text-decoration: none;
         transition: transform 0.2s;
-        border-radius: 15px; /* Rounded corners */
-        width: 100%; /* Make buttons take full width of the column */
+        border-radius: 15px;
+        width: 100%;
     }
 
     .category-card:hover {
-        transform: scale(1.05); /* Optional: Hover effect */
+        transform: scale(1.05);
     }
 
-    /* Optional: Add spacing between rows of buttons */
     .row.justify-content-center {
         margin-top: 10px;
     }
-</style>
 
+    /* Override Bootstrap container width for larger screens */
+    @media (min-width: 1200px) {
+        .container, .container-lg, .container-md, .container-sm, .container-xl {
+            max-width: 100% !important; /* Set max-width to 100% */
+            padding: 0 15px; /* Optional: Add some padding to the sides */
+        }
+    }
+</style>
 
 <div class="container-fluid">
     <div class="row">
         <!-- Video Column -->
-        <div class="col-lg-8 p-0"> <!-- Use col-lg-8 to take up 8 columns on large screens -->
+        <div class="col-lg-8 col-md-12 p-0">
             <div class="video-container">
                 <video autoplay muted loop>
                     <source src="{% static 'videos/homepagevideo.mp4' %}" type="video/mp4">
@@ -53,10 +70,11 @@
             </div>
         </div>
         
-        <div class="col-lg-4 d-flex align-items-center justify-content-center">
+        <!-- Top Categories Column -->
+        <div class="col-lg-4 col-md-12 d-flex align-items-center justify-content-center">
             <div class="text-center">
-                <h1 class="top-categories-title text-left">Our Top Categories</h1>
-                <div class="row justify-content-center"> <!-- Align cards in two columns -->
+                <h1 class="top-categories-title">Our Top Categories</h1>
+                <div class="row justify-content-center">
                     {% for category, category_display in categories %}
                         <div class="col-md-6">
                             <a href="{% url 'category_courses' category %}" class="category-card" role="button">{{ category_display }}</a>
@@ -65,7 +83,6 @@
                 </div>
             </div>
         </div>
-        
     </div>
 </div>
 
