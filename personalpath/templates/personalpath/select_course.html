@@ -3,7 +3,7 @@
 {% block title %}Select Course{% endblock %}
 
 {% block content %}
-<div class="jumbotron">
+
     <div class="container mt-4">
         <h1>Set your goals</h1>
         <h3>Choose 1 Course to set your Learning Path</h3>
@@ -23,7 +23,7 @@
                 {% for category, category_display in categories %}
                 <div class="col-md-6 col-lg-3 mb-4">
                     <div class="card">
-                        <div class="card-header text-white" style="background-color: #178C8C;">
+                        <div class="card-header text-white" style="background-color: #3d30a2;">
                             <h5>{{ category_display }}</h5>
                         </div>
                         <div class="card-body">
@@ -42,11 +42,11 @@
                 {% endfor %}
             </div>
             <div class="text-right">
-                <button type="submit" class="btn btn-primary btn-lg mt-4" style="width: 200px;">Next</button>
+                <button type="submit" class="btn btn-primary btn-lg mt-4" style="width: 200px;background-color: #3d30a2; border-color: #3d30a2; color: white;">Next</button>
             </div>
         </form>
     </div>
-</div>
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -121,7 +121,7 @@
             cursor: pointer;
         }
         .course-item.selected {
-            background-color: #178C8C;
+            background-color: #c54189;
             color: white;
         }
     `;

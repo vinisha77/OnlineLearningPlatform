@@ -12,23 +12,32 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'InstructorApp/instructor.css' %}">
 
-    
     <style>
         /* Add custom styles to enhance the form appearance */
         .card {
             max-width: 500px;
             margin: 0 auto;
         }
-        .navbar, .footer {
-            background-color: #178C8C; /* Updated color */
+        .navbar-custom {
+            background: linear-gradient(45deg, #c54189, #3d30a2) !important; /* Gradient background */
+            color: #fff !important; /* Updated color for text */
+        }
+        .navbar-custom .navbar-nav .nav-link {
+            font-size: 1.5rem; /* Increased size of navbar menu items */
+            color: #fff !important; /* Custom color for navbar links */
+        }
+        .navbar-custom .navbar-nav .nav-item + .nav-item {
+            margin-left: 20px; /* Add space between nav items */
+        }
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 2rem; /* Increase size of brand */
+            color: #fff !important; /* Custom color for brand */
+        }
+        .footer-custom {
+            background: linear-gradient(45deg, #c54189, #3d30a2); /* Gradient background for footer */
             color: white;
-        }
-        .navbar-nav .nav-link {
-            font-size: 1.25rem; /* Increased size of navbar menu items */
-            color: white; /* White color for navbar links */
-        }
-        .footer {
-            padding: 10px 0;
+            padding: 20px 0;
             text-align: center;
         }
         /* Ensure the whole page takes at least the full height of the viewport */
@@ -45,34 +54,27 @@
         .content {
             flex: 1;
         }
-        /* Footer styling */
-        .footer {
-            padding: 15px 0;
-            text-align: center;
-            color: white;
-        }
 
-        /* Navbar link color */
-        .navbar .nav-link {
-            color: white;
-        }
-
-        /* Navbar brand styling */
-        .navbar-brand {
-            font-weight: bold;
-            font-size: 24px;
-        }
         .search-button {
-            background-color: #0A4A4A; /* Search button color */
-            color: white; /* Font color */
+            background-color: #c54189 !important; /* Search button color */
+            color: white !important; /* Font color */
+            border-radius: 30px !important; /* Rounded corners */
+            border: none !important; /* Remove white border */
+            padding: 10px 30px !important; /* Increase padding for width */
+        }
+
+
+        .form-inline .form-control {
+            width: 300px !important; /* Increase search bar width */
+            border-radius: 30px !important; /* Rounded corners for search bar */
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg navbar-custom">
         <div class="container-fluid">
             <!-- Logo -->
-            <a class="navbar-brand" href="{% url 'home' %}">Online Learning Platform</a>
+            <a class="navbar-brand" href="{% url 'home' %}">SkillBridge</a>
             
             <!-- Toggle button for mobile view -->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -92,9 +94,9 @@
                 </ul>
                 
                 <!-- Search bar -->
-                <form class="form-inline justify-content-center mx-auto " action="{% url 'search_courses' %}" method="get">
+                <form class="form-inline justify-content-center mx-auto" action="{% url 'search_courses' %}" method="get">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search courses" aria-label="Search" name="q">
-                    <button class="btn btn-outline-light my-2 my-sm-0 mt-md-1 search-button" type="submit">Search</button>
+                    <button class="btn my-2 my-sm-0 mt-md-1 search-button" type="submit">Search</button>
                 </form>
                 <ul class="navbar-nav ml-auto">
                     <!-- User authentication links -->
@@ -104,8 +106,7 @@
                             {{ user.username }}
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a>
-                            <div class="dropdown-divider"></div>
+                            
                             <a class="dropdown-item" href="{% url 'user_logout' %}">Logout</a>
                         </div>
                     </li>
@@ -138,16 +139,18 @@
             </div>
         {% endif %}
     </div>
-    <!-- Main content -->
-    <div class="container content">
+    <!-- Main content class="container content"-->
+    <div class ="Content">
         {% block content %}
         {% endblock %}
     </div>
-
+    <br><br><br>
+    
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer-custom">
         <div class="container">
-            <span >&copy; 2024 Online Learning Platform. All rights reserved.</span>
+            <h6>SkillBridge is optimized for learning and training | <span>&copy; 2024 Online Learning Platform. All rights reserved </span></h6>
+            
         </div>
     </footer>
 
@@ -155,6 +158,5 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 </body>
 </html>

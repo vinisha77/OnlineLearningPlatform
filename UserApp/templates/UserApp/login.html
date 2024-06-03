@@ -3,49 +3,83 @@
 {% load static %}
 
 {% block content %}
-    <div class="jumbotron">
-        <h1 class="display-4 text-center mb-4">Please Fill Out the Form to Login</h1>
-        <form action="{% url 'user_login' %}" method="post" class="mt-5">
-            {% csrf_token %}
+    <div class="container mt-5">
+        <div class="jumbotron p-5" style="border-radius: 15px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <h1 class="display-4 text-center mb-4">Login to Your Account</h1>
+            <p class="text-center mb-4">Enter your username and password to access your account and subscribe for the latest updates.</p>
+            <form action="{% url 'user_login' %}" method="post" class="mt-5">
+                {% csrf_token %}
 
-            <div class="form-group row justify-content-center">
-                <label for="username" class="col-sm-2 col-form-label text-right" style="font-size: 1.2em;">Username:</label>
-                <div class="col-sm-4">
-                    <input type="text" name="username" id="username" class="form-control form-control-lg" placeholder="Enter Username" required>
+                <div class="form-group row justify-content-center">
+                    <label for="username" class="col-sm-2 col-form-label text-right" style="font-size: 1.2em;">Username:</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="username" id="username" class="form-control form-control-lg" placeholder="Enter Username" required>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group row justify-content-center">
-                <label for="password" class="col-sm-2 col-form-label text-right" style="font-size: 1.2em;">Password:</label>
-                <div class="col-sm-4">
-                    <input type="password" name="password" id="password" class="form-control form-control-lg" placeholder="Enter Password" required>
+                <div class="form-group row justify-content-center">
+                    <label for="password" class="col-sm-2 col-form-label text-right" style="font-size: 1.2em;">Password:</label>
+                    <div class="col-sm-4">
+                        <input type="password" name="password" id="password" class="form-control form-control-lg" placeholder="Enter Password" required>
+                    </div>
                 </div>
-            </div>
+               <br><br>
+                <!-- Information message block -->
+                <div class="form-group row justify-content-center">
+                    <div class="col-sm-6 text-center">
+                        <div class="alert alert-info" role="alert">
+                            <strong>Note:</strong> By logging in, you can subscribe to receive the latest updates and notifications about our platform.
+                        </div>
+                    </div>
+                </div>
 
-            <div class="form-group row justify-content-center">
-                <div class="col-sm-6 text-center">
-                    <button type="submit" class="btn btn-secondary btn-lg ml-2">Login</button>
-                    <a href="{% url 'course_list' %}" class="btn btn-secondary btn-lg ml-2">Cancel</a>
+                <div class="form-group row justify-content-center">
+                    <div class="col-sm-6 text-center">
+                        <button type="submit" class="btn btn-lg btn-login ml-2">Login</button>
+                        <a href="{% url 'course_list' %}" class="btn btn-lg btn-cancel ml-2">Cancel</a>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
+
+    <style>
+        /* Custom Styles for the Login Form */
+        .jumbotron {
+            background-color: #f8f9fa;
+        }
+
+        .btn-login {
+            width: 200px;
+            background-color: #3d30a2;
+            border-color: #3d30a2;
+            color: white;
+        }
+
+        .btn-login:hover {
+            background-color: #2e257e;
+            border-color: #2e257e;
+        }
+
+        .btn-cancel {
+            width: 200px;
+            background-color: #c54189;
+            border-color: #c54189;
+            color: white;
+        }
+
+        .btn-cancel:hover {
+            background-color: #a3316b;
+            border-color: #a3316b;
+        }
+
+        .form-control-lg {
+            border-radius: 10px;
+        }
+
+        .alert-info {
+            background-color: #e9f7fc;
+            color: #31708f;
+        }
+    </style>
 {% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

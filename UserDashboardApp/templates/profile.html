@@ -36,11 +36,11 @@
         margin-bottom: 1.5rem !important;
     }
     .btn-custom {
-        background-color: #178C8C; /* Updated color */
+        background-color: #3d30a2; /* Updated color */
         color: white;
     }
     .list-group-item.active {
-        background-color: #178C8C;;
+        background-color: #3d30a2;;
       }
 </style>
 <div class="container mt-4">
@@ -60,7 +60,7 @@
             <form method="post">
                 {% csrf_token %}
                 {{ form|crispy }}
-                <button type="submit" class="btn btn-custom">Save Changes</button>
+                <button type="submit" style="width: 200px;background-color: #3d30a2; border-color: #3d30a2; color: white;" class="btn btn-custom">Save Changes</button>
             </form>
         </div>
     </div>

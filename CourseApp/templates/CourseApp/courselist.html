@@ -16,7 +16,9 @@
         white-space: nowrap;
         text-overflow: ellipsis;
     }
-
+    .btn-apply-filter {
+        color : #3d30a2;
+    }
     /* Adjustments for screens wider than 1440px */
     @media (min-width: 1440px) {
         .container {
@@ -95,7 +97,8 @@
             {{ form.max_price|add_class:"form-control" }}
         </div>
         <div class="form-group col-md-2 align-self-end">
-            <button type="submit" class="btn btn-primary btn-block">Apply Filters</button>
+            <button type="submit" class="btn btn-apply-filter btn-block" style="background-color: #3d30a2; border-color: #3d30a2; color: white;">Apply Filters</button>
+
             {% if has_filter %}
             <a href="{% url 'course_list' %}" class="btn btn-secondary btn-block">Clear all filters</a>
             {% endif %}
@@ -117,7 +120,7 @@
                     {% if course.id in user_enrollments %}
                         <button class="btn btn-secondary mt-2" disabled>Enrolled</button>
                     {% else %}
-                        <a href="{% url 'enroll_course' course.id %}" class="btn btn-success mt-2" onclick="showEnrollModal(event)">Enroll</a>
+                        <a href="{% url 'enroll_course' course.id %}" class="btn btn-success mt-2" style="width: 200px;background-color: #3d30a2; border-color: #3d30a2; color: white;" onclick="showEnrollModal(event)">Enroll</a>
                     {% endif %}
                 </div>
             </div>

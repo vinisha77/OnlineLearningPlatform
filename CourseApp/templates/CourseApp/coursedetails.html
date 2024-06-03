@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="{% static 'CourseApp/coursedetails.css' %}">
     
     <div class="container">
-        <a href="{% url 'course_list' %}" class="btn btn-secondary mt-3">Back to Course List</a>
+        
+        <a href="{% url 'course_list' %}" class="btn btn-secondary mt-3" style="width: 200px;background-color: #3d30a2; border-color: #3d30a2; color: white;">Back to Course List</a>
         <h1 class="my-4">{{ course.title }} by {{course.author}}</h1>
         <div class="row">
             <div class="col-md-8">
@@ -27,8 +28,9 @@
                         {% if course.id in user_enrollments %}
                             <button class="btn btn-secondary" disabled>Enrolled</button>
                         {% else %}
-                            <a href="{% url 'enroll_course' course.id %}" class="btn btn-success" onclick="showEnrollModal(event)">Enroll</a>
+                            <a href="{% url 'enroll_course' course.id %}" class="btn btn-success" style="width: 200px;background-color: #3d30a2; border-color: #3d30a2; color: white;" onclick="showEnrollModal(event)">Enroll</a>
                         {% endif %}
+                        
                         {% endif %}
                     </div>
                 </div>
