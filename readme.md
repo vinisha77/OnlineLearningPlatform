@@ -24,6 +24,13 @@ The objective of this project is to develop an innovative online learning platfo
 - **Version Control:** Git and GitHub
 - **Project Management:** Trello or a similar tool
 
+- ## Screenshots
+<div style="display: flex; flex-wrap: wrap;">
+    <img src="https://github.com/Olcaytp/OnlineLearningPlatform/blob/main/assets/homepage.png" alt="" width="300"/>
+    <img src="https://github.com/Olcaytp/OnlineLearningPlatform/blob/main/assets/dashboard.png" alt="" width="300"/>
+    <img src="https://github.com/Olcaytp/OnlineLearningPlatform/blob/main/assets/path.png" alt="" width="300"/>
+</div>
+
 ## Installation
 1. **Clone the repository:**
    git clone https://github.com/yourusername/online-learning-platform.git
